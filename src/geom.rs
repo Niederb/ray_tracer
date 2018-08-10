@@ -1,5 +1,7 @@
 use std::ops::Add;
+use std::ops::Mul;
 
+#[derive(Debug, PartialEq)]
 pub struct Vec3 {
     x: f64,
     y: f64,
@@ -24,10 +26,17 @@ impl Add<Vec3> for Vec3 {
     type Output = Vec3;
 
     fn add(self, rhs: Vec3) -> Vec3 {
-        Vec3{ x: self.x + rhs.x, y:0.0, z:0.0}
+        Vec3{ x: self.x + rhs.x, y:self.y + rhs.y, z:self.z + rhs.z}
     }
 }
 
+impl Mul<f64> for Vec3 {
+    type Output = Vec3;
+
+    fn mul(self, t: f64) -> Vec3 {
+        Vec3{ x: t*self.x, y:t*self.y, z:t*self.z}
+    }
+}
 
 #[test]
 fn squared_length_test() {
@@ -39,4 +48,28 @@ fn squared_length_test() {
 fn length_test() {
     let my_vec = Vec3::new(0.0, 4.0, 3.0);
     assert_eq!(5.0, my_vec.length());
+}
+
+#[test]
+fn add_test() {
+    let my_vec = Vec3::new(0.0, 4.0, 3.0);
+    let my_vec2 = Vec3::new(-1.0, -4.0, 5.0);
+    let result = Vec3::new(-1.0, 0.0, 8.0);
+    assert_eq!(result, my_vec + my_vec2);
+}
+
+
+pub struct Ray {
+    origin: Vec3,
+    direction: Vec3
+}
+
+impl Ray {
+    pub fn new(origin:Vec3, direction:Vec3) -> Ray {
+        Ray { origin:origin, direction:direction }
+    }
+
+    pub fn point_at_parameter(self, t:f64) -> Vec3 {
+        self.origin + self.direction*t
+    }
 }
