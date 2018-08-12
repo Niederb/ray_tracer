@@ -38,22 +38,27 @@ impl Mul<f64> for Vec3 {
     }
 }
 
-#[test]
-fn squared_length_test() {
-    let my_vec = Vec3::new(1.0, 2.0, 3.0);
-    assert_eq!(14.0, my_vec.squared_length());
-}
+#[cfg(test)]
+mod test {
+    use geom::Vec3;
+    
+    #[test]
+    fn squared_length_test() {
+        let my_vec = Vec3::new(1.0, 2.0, 3.0);
+        assert_eq!(14.0, my_vec.squared_length());
+    }
 
-#[test]
-fn length_test() {
-    let my_vec = Vec3::new(0.0, 4.0, 3.0);
-    assert_eq!(5.0, my_vec.length());
-}
+    #[test]
+    fn length_test() {
+        let my_vec = Vec3::new(0.0, 4.0, 3.0);
+        assert_eq!(5.0, my_vec.length());
+    }
 
-#[test]
-fn add_test() {
-    let my_vec = Vec3::new(0.0, 4.0, 3.0);
-    let my_vec2 = Vec3::new(-1.0, -4.0, 5.0);
-    let result = Vec3::new(-1.0, 0.0, 8.0);
-    assert_eq!(result, my_vec + my_vec2);
+    #[test]
+    fn add_test() {
+        let my_vec = Vec3::new(0.0, 4.0, 3.0);
+        let my_vec2 = Vec3::new(-1.0, -4.0, 5.0);
+        let result = Vec3::new(-1.0, 0.0, 8.0);
+        assert_eq!(result, my_vec + my_vec2);
+    }
 }

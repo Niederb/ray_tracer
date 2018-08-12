@@ -16,13 +16,18 @@ impl Ray {
     }
 }
 
-#[test]
-fn point_at_parameter_test() {
-    let origin = Vec3::new(1.0, 2.0, 3.0);
-    let direction = Vec3::new(-1.0, -4.0, 5.0);
-    let ray = Ray::new(origin, direction);
-    let result = Vec3::new(1.0, 2.0, 3.0);
-    assert_eq!(result, ray.point_at_parameter(0.0));
-    let result2 = Vec3::new(0.0, -2.0, 8.0);
-    assert_eq!(result2, ray.point_at_parameter(1.0));
+#[cfg(test)]
+mod test {
+    use geom::Vec3;
+    use geom::Ray;
+    #[test]
+    fn point_at_parameter_test() {
+        let origin = Vec3::new(1.0, 2.0, 3.0);
+        let direction = Vec3::new(-1.0, -4.0, 5.0);
+        let ray = Ray::new(origin, direction);
+        let result = Vec3::new(1.0, 2.0, 3.0);
+        assert_eq!(result, ray.point_at_parameter(0.0));
+        let result2 = Vec3::new(0.0, -2.0, 8.0);
+        assert_eq!(result2, ray.point_at_parameter(1.0));
+    }
 }
