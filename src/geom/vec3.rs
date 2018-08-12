@@ -1,7 +1,7 @@
 use std::ops::Add;
 use std::ops::Mul;
 
-#[derive(Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Vec3 {
     x: f64,
     y: f64,
@@ -56,20 +56,4 @@ fn add_test() {
     let my_vec2 = Vec3::new(-1.0, -4.0, 5.0);
     let result = Vec3::new(-1.0, 0.0, 8.0);
     assert_eq!(result, my_vec + my_vec2);
-}
-
-
-pub struct Ray {
-    origin: Vec3,
-    direction: Vec3
-}
-
-impl Ray {
-    pub fn new(origin:Vec3, direction:Vec3) -> Ray {
-        Ray { origin:origin, direction:direction }
-    }
-
-    pub fn point_at_parameter(self, t:f64) -> Vec3 {
-        self.origin + self.direction*t
-    }
 }
