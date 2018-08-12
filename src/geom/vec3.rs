@@ -1,5 +1,6 @@
 use std::ops::Add;
 use std::ops::Mul;
+use std::ops::Div;
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Vec3 {
@@ -13,12 +14,28 @@ impl Vec3 {
         Vec3{ x:x, y:y, z:z}
     }
 
+    pub fn unit_vector(&self) -> Vec3 {
+        *self / self.length()
+    }
+
     pub fn length(&self) -> f64 {
         self.squared_length().sqrt()
     }
 
     pub fn squared_length(&self) -> f64 {
         self.x.powi(2) + self.y.powi(2) + self.z.powi(2)
+    }
+
+    pub fn x(&self) -> f64 {
+        self.x
+    }
+
+    pub fn y(&self) -> f64 {
+        self.y
+    }
+
+    pub fn z(&self) -> f64 {
+        self.z
     }
 }
 
@@ -38,10 +55,18 @@ impl Mul<f64> for Vec3 {
     }
 }
 
+impl Div<f64> for Vec3 {
+    type Output = Vec3;
+
+    fn div(self, t: f64) -> Vec3 {
+        Vec3{ x: self.x/t, y:self.y/t, z:self.z/t}
+    }
+}
+
 #[cfg(test)]
 mod test {
     use geom::Vec3;
-    
+
     #[test]
     fn squared_length_test() {
         let my_vec = Vec3::new(1.0, 2.0, 3.0);
