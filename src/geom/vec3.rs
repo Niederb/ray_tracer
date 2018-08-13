@@ -1,4 +1,5 @@
 use std::ops::Add;
+use std::ops::Sub;
 use std::ops::Mul;
 use std::ops::Div;
 
@@ -37,6 +38,10 @@ impl Vec3 {
     pub fn z(&self) -> f64 {
         self.z
     }
+
+    pub fn dot(left:&Vec3, right:&Vec3) -> f64 {
+        left.x()*right.x() + left.y()*right.y() + left.z()*right.z() 
+    }
 }
 
 impl Add<Vec3> for Vec3 {
@@ -44,6 +49,14 @@ impl Add<Vec3> for Vec3 {
 
     fn add(self, rhs: Vec3) -> Vec3 {
         Vec3{ x: self.x + rhs.x, y:self.y + rhs.y, z:self.z + rhs.z}
+    }
+}
+
+impl Sub<Vec3> for Vec3 {
+    type Output = Vec3;
+
+    fn sub(self, rhs: Vec3) -> Vec3 {
+        Vec3{ x: self.x - rhs.x, y:self.y - rhs.y, z:self.z - rhs.z}
     }
 }
 

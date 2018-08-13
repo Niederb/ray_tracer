@@ -3,7 +3,20 @@ use std::io::prelude::*;
 
 mod geom;
 
+fn hit_sphere(center:&geom::Vec3, radius:f64, r:&geom::Ray)  -> bool {
+    let oc = *r.origin() - *center;
+    let a = geom::Vec3::dot(r.direction(), r.direction());
+    let b = 2.0 * geom::Vec3::dot(&oc, r.direction());
+    let c = geom::Vec3::dot(&oc, &oc) - radius*radius;
+    let discriminant = b*b - 4.0*a*c;
+    discriminant > 0.0
+}
+
 fn color(r:geom::Ray) -> geom::Vec3 {
+    let center = geom::Vec3::new(0.0, 0.0, -1.0);
+    if hit_sphere(&center, 0.5, &r) {
+        return geom::Vec3::new(1.0, 0.0, 0.0);
+    }
     let direction = r.direction().unit_vector();
     let t:f64 = 0.5*(direction.y() + 1.0);
     let white = geom::Vec3::new(1.0, 1.0, 1.0);
@@ -12,8 +25,8 @@ fn color(r:geom::Ray) -> geom::Vec3 {
 }
 
 fn main() {
-    let height = 200;
-    let width = 300;
+    let height = 100;
+    let width = 200;
 
     let mut f2 = File::create("image.txt").expect("Unable to create file");
     write!(f2, "P3\n{} {}\n255\n", width, height).expect("cout not write to file<");
