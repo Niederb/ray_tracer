@@ -78,7 +78,7 @@ impl Div<f64> for Vec3 {
 
 #[cfg(test)]
 mod test {
-    use geom::Vec3;
+    use super::Vec3;
 
     #[test]
     fn squared_length_test() {

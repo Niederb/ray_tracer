@@ -1,4 +1,4 @@
-use geom::Vec3;
+use super::Vec3;
 
 #[derive(Debug, PartialEq)]
 pub struct Ray {
@@ -26,8 +26,8 @@ impl Ray {
 
 #[cfg(test)]
 mod test {
-    use geom::Vec3;
-    use geom::Ray;
+    use super::Vec3;
+    use super::Ray;
     #[test]
     fn point_at_parameter_test() {
         let origin = Vec3::new(1.0, 2.0, 3.0);
