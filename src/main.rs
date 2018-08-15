@@ -4,19 +4,12 @@ use geom::*;
 
 mod geom;
 
-fn hit_sphere(center:&Vec3, radius:f64, r:&Ray)  -> bool {
-    let oc = *r.origin() - *center;
-    let a = Vec3::dot(r.direction(), r.direction());
-    let b = 2.0 * Vec3::dot(&oc, r.direction());
-    let c = Vec3::dot(&oc, &oc) - radius*radius;
-    let discriminant = b*b - 4.0*a*c;
-    discriminant > 0.0
-}
-
-fn color(r:Ray) -> Vec3 {
-    let center = Vec3::new(0.0, 0.0, -1.0);
-    if hit_sphere(&center, 0.5, &r) {
-        return Vec3::new(1.0, 0.0, 0.0);
+fn color(r:&Ray, s:&Sphere) -> Vec3 {
+    let hit_record = s.hit(r, 0.0, 100000.0);
+    if hit_record.is_hit() {
+        let hit_point = hit_record.hit_point();
+        let normal = hit_record.normal();
+        return Vec3::new(normal.x() + 1.0, normal.y() + 1.0, normal.z() + 1.0) * 0.5;
     }
     let direction = r.direction().unit_vector();
     let t:f64 = 0.5*(direction.y() + 1.0);
@@ -36,14 +29,14 @@ fn main() {
     let lower_left_corner = Vec3::new(-2.0, -1.0, -1.0);
     let horizontal_size = Vec3::new(4.0, 0.0, 0.0);
     let vertical_size = Vec3::new(0.0, 2.0, 0.0);
-
+    let sphere = Sphere::new(Vec3::new(0.0, 0.0, -1.0), 0.5);
     for y in 0..height {
         for x in 0..width {
             let u = x as f64 / width as f64;
             let v = y as f64 / height as f64;
             
             let r = Ray::new(origin, lower_left_corner + horizontal_size*u + vertical_size*v);
-            let color = color(r);
+            let color = color(&r, &sphere);
             let r = 255.99 * color.x();
             let g = 255.99 * color.y();
             let b = 255.99 * color.z();

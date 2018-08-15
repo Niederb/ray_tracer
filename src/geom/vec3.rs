@@ -15,6 +15,10 @@ impl Vec3 {
         Vec3{ x:x, y:y, z:z}
     }
 
+    pub fn origin() -> Vec3 {
+        Vec3{ x:0.0, y:0.0, z:0.0}
+    }
+
     pub fn unit_vector(&self) -> Vec3 {
         *self / self.length()
     }
