@@ -1,5 +1,6 @@
 use super::Vec3;
 use super::Ray;
+use std;
 
 pub struct HitRecord {
     is_hit:bool,

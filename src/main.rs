@@ -4,8 +4,8 @@ use geom::*;
 
 mod geom;
 
-fn color(r:&Ray, s:&Sphere) -> Vec3 {
-    let hit_record = s.hit(r, 0.0, 100000.0);
+fn color(r:&Ray, h:&Hitable) -> Vec3 {
+    let hit_record = h.hit(r, 0.0, 100000.0);
     if hit_record.is_hit() {
         let hit_point = hit_record.hit_point();
         let normal = hit_record.normal();
@@ -29,14 +29,17 @@ fn main() {
     let lower_left_corner = Vec3::new(-2.0, -1.0, -1.0);
     let horizontal_size = Vec3::new(4.0, 0.0, 0.0);
     let vertical_size = Vec3::new(0.0, 2.0, 0.0);
-    let sphere = Sphere::new(Vec3::new(0.0, 0.0, -1.0), 0.5);
+    let mut hit_list = HitableList::new();
+    hit_list.add(Sphere::new(Vec3::new(0.0, 0.0, -1.0), 0.5));
+    hit_list.add(Sphere::new(Vec3::new(1.0, 0.1, -0.9), 0.25));
+    hit_list.add(Sphere::new(Vec3::new(-1.0, -0.1, -0.9), 0.25));
     for y in 0..height {
         for x in 0..width {
             let u = x as f64 / width as f64;
             let v = y as f64 / height as f64;
             
             let r = Ray::new(origin, lower_left_corner + horizontal_size*u + vertical_size*v);
-            let color = color(&r, &sphere);
+            let color = color(&r, &hit_list);
             let r = 255.99 * color.x();
             let g = 255.99 * color.y();
             let b = 255.99 * color.z();
