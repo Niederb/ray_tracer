@@ -26,12 +26,12 @@ impl HitRecord {
         self.is_hit
     }
 
-    pub fn normal(&self) -> &Vec3 {
-        &self.normal
+    pub fn normal(&self) -> Vec3 {
+        self.normal
     }
 
-    pub fn hit_point(&self) -> &Vec3 {
-        &self.p
+    pub fn hit_point(&self) -> Vec3 {
+        self.p
     }
 }
 

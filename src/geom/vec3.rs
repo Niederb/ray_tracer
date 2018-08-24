@@ -97,10 +97,19 @@ mod test {
     }
 
     #[test]
-    fn add_test() {
+    fn basic_operation_test() {
         let my_vec = Vec3::new(0.0, 4.0, 3.0);
         let my_vec2 = Vec3::new(-1.0, -4.0, 5.0);
-        let result = Vec3::new(-1.0, 0.0, 8.0);
-        assert_eq!(result, my_vec + my_vec2);
+        assert_eq!(Vec3::new(-1.0, 0.0, 8.0), my_vec + my_vec2);
+        assert_eq!(Vec3::new(1.0, 8.0, -2.0), my_vec - my_vec2);
+        assert_eq!(Vec3::new(0.0, -8.0, -6.0), my_vec * -2.0);
+        assert_eq!(Vec3::new(0.0, 2.0, 1.5), my_vec / 2.0);
+    }
+
+    #[test]
+    fn dot_test() {
+        let my_vec = Vec3::new(0.0, 4.0, 3.0);
+        let my_vec2 = Vec3::new(-1.0, -4.0, 5.0);
+        assert_eq!(-1.0, Vec3::dot(&my_vec,  &my_vec2));
     }
 }

@@ -20,10 +20,10 @@ impl Hitable for Sphere {
         let oc = *r.origin() - self.center;
         let a = Vec3::dot(r.direction(), r.direction());
         let b = Vec3::dot(&oc, r.direction());
-        let c = Vec3::dot(&oc, &oc) - self.radius*self.radius;
-        let discriminant = b*b - a*c;
+        let c = Vec3::dot(&oc, &oc) - self.radius.powi(2);
+        let discriminant = b.powi(2) - a*c;
         if discriminant > 0.0 {
-            let temp = (b*b - a*c).sqrt();
+            let temp = (b.powi(2) - a*c).sqrt();
             let solution1 = (-b - temp) / a;
             if solution1 < t_max && solution1 > t_min {
                 let hit_point = r.point_at_parameter(solution1);
