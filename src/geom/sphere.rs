@@ -2,16 +2,20 @@ use super::Vec3;
 use super::Ray;
 use super::Hitable;
 use super::HitRecord;
+use super::Material;
 
-#[derive(Debug, PartialEq)]
+use std::rc::Rc;
+
+#[derive(Debug)]
 pub struct Sphere {
     center:Vec3,
-    radius:f64
+    radius:f64, 
+    material: Rc<Material>,
 }
 
 impl Sphere {
-    pub fn new(center:Vec3, radius:f64) -> Sphere {
-        Sphere { center:center, radius:radius }
+    pub fn new(center:Vec3, radius:f64, material:Rc<Material>) -> Sphere {
+        Sphere { center, radius, material}
     }
 }
 
@@ -28,13 +32,13 @@ impl Hitable for Sphere {
             if solution1 < t_max && solution1 > t_min {
                 let hit_point = r.point_at_parameter(solution1);
                 let normal = (hit_point - self.center) / self.radius;
-                return HitRecord::new(solution1, hit_point, normal);
+                return HitRecord::new(solution1, hit_point, normal, Rc::clone(&self.material));
             }
             let solution2 = (-b + temp) / a;
             if solution2 < t_max && solution2 > t_min {
                 let hit_point = r.point_at_parameter(solution2);
                 let normal = (hit_point - self.center) / self.radius;
-                return HitRecord::new(solution2, hit_point, normal);
+                return HitRecord::new(solution2, hit_point, normal, Rc::clone(&self.material));
             }
         }
         HitRecord::no_hit()

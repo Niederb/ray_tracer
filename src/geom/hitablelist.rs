@@ -5,11 +5,11 @@ use super::HitRecord;
 use std;
 
 #[derive(PartialEq)]
-pub struct HitableList<T: Hitable + std::fmt::Debug + PartialEq> {
+pub struct HitableList<T: Hitable + std::fmt::Debug> {
     l:Vec<Box<T>>
 }
 
-impl<T: Hitable + std::fmt::Debug + PartialEq> HitableList<T> {
+impl<T: Hitable + std::fmt::Debug> HitableList<T> {
     pub fn new() -> HitableList<T> {
         HitableList::<T> { l:Vec::new() }
     }
@@ -19,7 +19,7 @@ impl<T: Hitable + std::fmt::Debug + PartialEq> HitableList<T> {
     }
 }
 
-impl<T: Hitable + std::fmt::Debug + PartialEq> Hitable for HitableList<T> {
+impl<T: Hitable + std::fmt::Debug> Hitable for HitableList<T> {
     fn hit(&self, r:&Ray, t_min:f64, t_max:f64) -> HitRecord {
         if self.l.len() == 0 {
             return HitRecord::no_hit()

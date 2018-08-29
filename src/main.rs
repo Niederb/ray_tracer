@@ -4,25 +4,19 @@ use std::fs::File;
 use std::io::prelude::*;
 use geom::*;
 
-mod geom;
+use std::rc::Rc;
 
-fn random_in_unit_sphere() -> Vec3 {
-    loop {
-        let v = Vec3::new(rand::random::<f64>(), rand::random::<f64>(), rand::random::<f64>()) * 2.0 - Vec3::new(1.0, 1.0, 1.0);
-        if v.length() < 1.0 {
-            return v;
-        }
-    }
-}
+mod geom;
 
 fn color(r:&Ray, h:&Hitable, depth:i32) -> Vec3 {
     let hit_record = h.hit(r, 0.0001, 100000.0);
     if hit_record.is_hit() {
-        let hit_point = hit_record.hit_point();
-        let normal = hit_record.normal();
-        let random_direction = random_in_unit_sphere();
-        let target = hit_point + normal + random_direction;
-        return color(&Ray::new(hit_point, target - hit_point), h, depth + 1) * 0.5;
+        if depth < 50 {
+            let (attenuation, scattered) = hit_record.material().scatter(r, hit_record);
+            return attenuation * color(&scattered, h, depth + 1);
+        } else {
+            return Vec3::origin();
+        }
     }
     let direction = r.direction().unit_vector();
     let t:f64 = 0.5*(direction.y() + 1.0);
@@ -40,8 +34,9 @@ fn main() {
 
     let camera = Camera::new();
     let mut hit_list = HitableList::new();
-    hit_list.add(Sphere::new(Vec3::new(0.0, 0.0, -1.0), 0.5));
-    hit_list.add(Sphere::new(Vec3::new(0.0, -100.5, -1.0), 100.0));
+    let material:Rc<Material> = Rc::new(Lambertian::new(Vec3::new(0.8, 0.3, 0.3)));
+    hit_list.add(Sphere::new(Vec3::new(0.0, 0.0, -1.0), 0.5, Rc::clone(&material)));
+    hit_list.add(Sphere::new(Vec3::new(0.0, -100.5, -1.0), 100.0, Rc::clone(&material)));
     for y in (0..height).rev() {
         for x in 0..width {
             let mut total = Vec3::new(0.0, 0.0, 0.0);
