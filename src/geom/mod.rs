@@ -6,6 +6,8 @@ mod hitable;
 mod camera;
 mod material;
 mod lambertian;
+mod metal;
+mod dielectric;
 
 pub use self::ray::Ray;
 pub use self::vec3::Vec3;
@@ -16,3 +18,6 @@ pub use self::hitable::HitRecord;
 pub use self::camera::Camera;
 pub use self::material::Material;
 pub use self::lambertian::Lambertian;
+pub use self::metal::Metal;
+pub use self::lambertian::random_in_unit_sphere;
+pub use self::dielectric::Dielectric;
