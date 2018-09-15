@@ -1,6 +1,8 @@
 use super::Vec3;
 use super::Ray;
 
+use std::f64::consts::PI;
+
 pub struct Camera {
     origin: Vec3,
     lower_left_corner: Vec3, 
@@ -10,12 +12,17 @@ pub struct Camera {
 }
 
 impl Camera{
-    pub fn new() -> Camera {
-        let lower_left_corner = Vec3::new(-2.0, -1.0, -1.0);
-        let horizontal = Vec3::new(4.0, 0.0, 0.0);
-        let vertical = Vec3::new(0.0, 2.0, 0.0);
-        let origin = Vec3::new(0.0, 0.0, 0.0);
-        Camera { origin, lower_left_corner, horizontal, vertical }
+    pub fn new(lookfrom:Vec3, lookat:Vec3, vup:Vec3, vfov:f64, aspect:f64) -> Camera {
+        let theta = vfov * PI / 180.0;
+        let half_height = (theta/2.0).tan();
+        let half_width = aspect * half_height;
+        let w = (lookfrom - lookat).unit_vector();
+        let u = Vec3::cross(&vup, &w).unit_vector();
+        let v = Vec3::cross(&w, &u);
+        let lower_left_corner = lookfrom - u * half_width - v * half_width - w; 
+        let horizontal = u * 2.0 * half_width;
+        let vertical = v * 2.0 * half_height;
+        Camera { origin: lookfrom, lower_left_corner, horizontal, vertical }
     }
 
     pub fn get_ray(&self, u:f64, v:f64) -> Ray {

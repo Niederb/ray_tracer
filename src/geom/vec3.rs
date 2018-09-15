@@ -46,6 +46,13 @@ impl Vec3 {
     pub fn dot(left:&Vec3, right:&Vec3) -> f64 {
         left.x()*right.x() + left.y()*right.y() + left.z()*right.z() 
     }
+
+    pub fn cross(left:&Vec3, right:&Vec3) -> Vec3 {
+        let x = left.y() * right.z() - left.z() * right.y();
+        let y = -left.x() * right.z() - left.z() * right.x();
+        let z = left.x() * right.y() - left.y() * right.x();
+        Vec3::new(x, y, z)
+    }
 }
 
 impl Add<Vec3> for Vec3 {

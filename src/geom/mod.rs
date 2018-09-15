@@ -18,6 +18,7 @@ pub use self::hitable::HitRecord;
 pub use self::camera::Camera;
 pub use self::material::Material;
 pub use self::lambertian::Lambertian;
-pub use self::metal::Metal;
 pub use self::lambertian::random_in_unit_sphere;
+pub use self::metal::Metal;
+pub use self::metal::reflect;
 pub use self::dielectric::Dielectric;

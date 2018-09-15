@@ -27,8 +27,8 @@ impl Lambertian {
 
 impl Material for Lambertian {
     fn scatter(&self, ray:&Ray, hit_record:HitRecord) -> (Vec3, Ray) {
-        let hit_point = hit_record.hit_point();
-        let normal = hit_record.normal();
+        let hit_point = *hit_record.hit_point();
+        let normal = *hit_record.normal();
         let random_direction = random_in_unit_sphere();
         let target = hit_point + normal + random_direction;
         let scattered = Ray::new(hit_point, target - hit_point);
