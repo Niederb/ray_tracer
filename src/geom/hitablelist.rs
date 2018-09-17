@@ -32,7 +32,7 @@ impl<T: Hitable + std::fmt::Debug> Hitable for HitableList<T> {
             match current_record {
                 // The division was valid
                 Some(hit_record) => {
-                    if hit_record.is_hit() && (hit_record.t() < min_distance || closest_record.is_none()) {
+                    if hit_record.t() < min_distance || closest_record.is_none() {
                         min_distance = hit_record.t();
                         closest_record = Some(hit_record);
                         
