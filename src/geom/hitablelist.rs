@@ -20,16 +20,27 @@ impl<T: Hitable + std::fmt::Debug> HitableList<T> {
 }
 
 impl<T: Hitable + std::fmt::Debug> Hitable for HitableList<T> {
-    fn hit(&self, r:&Ray, t_min:f64, t_max:f64) -> HitRecord {
+    fn hit(&self, r:&Ray, t_min:f64, t_max:f64) -> Option<HitRecord> {
         if self.l.len() == 0 {
-            return HitRecord::no_hit()
+            return None;
         }
-        let mut closest_record = self.l[0].hit(r, t_min, t_max);
+        let mut closest_record: Option<HitRecord> = None;
+        let mut min_distance = std::f64::MAX;
+        
         for h in &self.l {
             let current_record = h.hit(r, t_min, t_max);
-            if current_record.is_hit() && (current_record.t() < closest_record.t() || !closest_record.is_hit()) {
-                closest_record = current_record;
+            match current_record {
+                // The division was valid
+                Some(hit_record) => {
+                    if hit_record.is_hit() && (hit_record.t() < min_distance || closest_record.is_none()) {
+                        min_distance = hit_record.t();
+                        closest_record = Some(hit_record);
+                        
+                    }
+                }
+                None    => (),
             }
+            
         }
         closest_record
     }

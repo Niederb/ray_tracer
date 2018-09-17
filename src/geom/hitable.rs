@@ -14,6 +14,7 @@ pub struct HitRecord {
 }
 
 impl HitRecord {
+
     pub fn new(t:f64, p:Vec3, normal:Vec3, material:Rc<Material>) -> HitRecord {
         HitRecord { is_hit:true, t, p, normal, material }
     }
@@ -45,5 +46,5 @@ impl HitRecord {
 }
 
 pub trait Hitable {
-    fn hit(&self, r:&Ray, t_min:f64, t_max:f64) -> HitRecord;
+    fn hit(&self, r:&Ray, t_min:f64, t_max:f64) -> Option<HitRecord>;
 }
