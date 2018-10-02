@@ -5,3 +5,7 @@ authors = ["Niederb <thomas@niederberger.ch>"]
 
 [dependencies]
 rand = "0.5.4"
+image = "*"
+
+[profile.release]
+debug = true

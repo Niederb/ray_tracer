@@ -1,5 +1,7 @@
 extern crate rand;
+extern crate image;
 
+use image::ImageBuffer;
 use std::fs::File;
 use std::io::prelude::*;
 use geom::*;
@@ -46,8 +48,6 @@ fn main() {
     let height = 100;
     let width = 150;
     let n_samples = 10;
-    let mut f2 = File::create("image.txt").expect("Unable to create file");
-    write!(f2, "P3\n{} {}\n255\n", width, height).expect("cout not write to file<");
     let camera = create_camera(width, height);
 
     let mut hit_list = HitableList::new();
@@ -76,7 +76,8 @@ fn main() {
     hit_list.add(Sphere::new(Vec3::new(4.0, 1.0, 0.0), 1.0, Rc::new(Metal::new(Vec3::new(0.7, 0.6, 0.5), 0.0))));
     hit_list.add(Sphere::new(Vec3::new(0.0, -100.5, -1.0), 100.0, Rc::clone(&metal)));
     let total_time = Instant::now();
-    for y in (0..height).rev() {
+    let mut img: image::RgbaImage = ImageBuffer::new(width as u32, height as u32);
+    for y in (0..height) {
         for x in 0..width {
             let mut total = Vec3::new(0.0, 0.0, 0.0);
             for s in 0..n_samples {
@@ -93,11 +94,9 @@ fn main() {
             let r = 255.99 * total.x();
             let g = 255.99 * total.y();
             let b = 255.99 * total.z();
-            write!(f2, "{} {} {}\n", r, g, b).expect("could not write to file");
+            img.get_pixel_mut(x as u32, height as u32 - 1 - y as u32).data = [r as u8, g as u8, b as u8, 255];
         }
         println!("Lines to go: {} Estimated remaining time: {}", y, total_time.elapsed().as_secs() as f64 / (height as f64 - y as f64) * y as f64);
     }
-    let my_vec = Vec3::new(1.0, 2.0, 3.0);
-    println!("squared length: {}", my_vec.squared_length());
-    println!("length: {}", my_vec.length());
+    img.save("test.png").unwrap();
 }
