@@ -39,7 +39,6 @@ impl Material for Dielectric {
     fn scatter(&self, ray:&Ray, hit_record:HitRecord) -> (Vec3, Ray) {
         let reflected = reflect(ray.direction(), hit_record.normal());
         let attenuation= Vec3::new(1.0, 1.0, 1.0);
-        let scattered = Ray::new(Vec3::origin(), Vec3::origin());
         let det = Vec3::dot(ray.direction(), hit_record.normal());
         let (outward_normal, ni_over_nt) = if det > 0.0 {
             (*hit_record.normal() * -1.0, self.refraction_index) //TODO implement negative operator

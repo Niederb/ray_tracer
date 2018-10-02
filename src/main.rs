@@ -33,25 +33,27 @@ fn color(r:&Ray, h:&Hitable, depth:i32) -> Vec3 {
     white*(1.0-t) + blue*t
 }
 
-fn main() {
-    let height = 1000;
-    let width = 1500;
-    let n_samples = 100;
-    let mut f2 = File::create("image.txt").expect("Unable to create file");
-    write!(f2, "P3\n{} {}\n255\n", width, height).expect("cout not write to file<");
-
+fn create_camera(width:i32, height:i32) -> Camera {
     let camera_origin = Vec3::new(13.0, 2.0, 3.0);
     let camera_lookat = Vec3::new(0.0, 0.0, 0.0);
     let camera_up = Vec3::new(0.0, 1.0, 0.0);
     let dist_to_focus = 10.0;
     let aperture = 0.1;
-    let camera = Camera::new(camera_origin, camera_lookat, camera_up, 20.0, width as f64 / width as f64, aperture, dist_to_focus);
+    Camera::new(camera_origin, camera_lookat, camera_up, 20.0, width as f64 / height as f64, aperture, dist_to_focus)
+}
+
+fn main() {
+    let height = 100;
+    let width = 150;
+    let n_samples = 10;
+    let mut f2 = File::create("image.txt").expect("Unable to create file");
+    write!(f2, "P3\n{} {}\n255\n", width, height).expect("cout not write to file<");
+    let camera = create_camera(width, height);
 
     let mut hit_list = HitableList::new();
     let world_material:Rc<Material> = Rc::new(Lambertian::new(Vec3::new(0.5, 0.5, 0.5)));
-    let green:Rc<Material> = Rc::new(Lambertian::new(Vec3::new(0.3, 0.8, 0.3)));
     let metal:Rc<Material> = Rc::new(Metal::new(Vec3::new(0.3, 0.3, 0.8), 0.0));
-    let dielectric:Rc<Material> = Rc::new(Dielectric::new(1.5));
+
     hit_list.add(Sphere::new(Vec3::new(0.0, -1000.0, 0.0), 1000.0, Rc::clone(&world_material)));
     for a in -11..11 {
         for b in -11..11 {
@@ -72,11 +74,9 @@ fn main() {
     hit_list.add(Sphere::new(Vec3::new(0.0, 1.0, 0.0), 1.0, Rc::new(Dielectric::new(1.5))));
     hit_list.add(Sphere::new(Vec3::new(-4.0, 1.0, 0.0), 1.0, Rc::new(Lambertian::new(Vec3::new(0.4, 0.2, 0.1)))));
     hit_list.add(Sphere::new(Vec3::new(4.0, 1.0, 0.0), 1.0, Rc::new(Metal::new(Vec3::new(0.7, 0.6, 0.5), 0.0))));
-    //hit_list.add(Sphere::new(Vec3::new(-R, 0.0, -1.5), R, Rc::clone(&dielectric)));
     hit_list.add(Sphere::new(Vec3::new(0.0, -100.5, -1.0), 100.0, Rc::clone(&metal)));
     let total_time = Instant::now();
     for y in (0..height).rev() {
-        let now = Instant::now();
         for x in 0..width {
             let mut total = Vec3::new(0.0, 0.0, 0.0);
             for s in 0..n_samples {
@@ -95,7 +95,6 @@ fn main() {
             let b = 255.99 * total.z();
             write!(f2, "{} {} {}\n", r, g, b).expect("could not write to file");
         }
-        //println!("{}", now.elapsed().as_secs());
         println!("Lines to go: {} Estimated remaining time: {}", y, total_time.elapsed().as_secs() as f64 / (height as f64 - y as f64) * y as f64);
     }
     let my_vec = Vec3::new(1.0, 2.0, 3.0);
