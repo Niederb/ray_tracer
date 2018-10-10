@@ -1,9 +1,9 @@
 extern crate rand;
 
 use super::Material;
-use super::Ray;
-use super::Vec3;
-use super::HitRecord;
+use geom::Ray;
+use geom::Vec3;
+use geom::HitRecord;
 use super::reflect;
 
 fn refract(v:&Vec3, n:&Vec3, ni_over_nt:f64) -> (bool, Vec3) {

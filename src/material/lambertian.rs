@@ -1,10 +1,10 @@
 extern crate rand;
 
 use super::Material;
-use super::Ray;
-use super::Vec3;
-use super::HitRecord;
-use super::random_in_unit_sphere;
+use geom::Ray;
+use geom::Vec3;
+use geom::HitRecord;
+use geom::random_in_unit_sphere;
 
 #[derive(Debug)]
 pub struct Lambertian {

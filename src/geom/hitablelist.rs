@@ -1,7 +1,7 @@
-use super::Vec3;
-use super::Ray;
-use super::Hitable;
-use super::HitRecord;
+use Vec3;
+use Ray;
+use Hitable;
+use HitRecord;
 use std;
 
 #[derive(PartialEq)]

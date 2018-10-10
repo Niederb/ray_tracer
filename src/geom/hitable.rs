@@ -1,7 +1,6 @@
-use super::Vec3;
-use super::Ray;
-use super::Material;
-use super::Lambertian;
+use Vec3;
+use Ray;
+use material::Material;
 
 use std::rc::Rc;
 

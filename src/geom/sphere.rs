@@ -1,8 +1,8 @@
-use super::Vec3;
-use super::Ray;
-use super::Hitable;
-use super::HitRecord;
-use super::Material;
+use Vec3;
+use Ray;
+use Hitable;
+use HitRecord;
+use material::Material;
 
 use std::rc::Rc;
 

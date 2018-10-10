@@ -4,10 +4,6 @@ mod sphere;
 mod hitablelist;
 mod hitable;
 mod camera;
-mod material;
-mod lambertian;
-mod metal;
-mod dielectric;
 mod utils;
 
 pub use self::ray::Ray;
@@ -17,10 +13,6 @@ pub use self::hitablelist::HitableList;
 pub use self::hitable::Hitable;
 pub use self::hitable::HitRecord;
 pub use self::camera::Camera;
-pub use self::material::Material;
-pub use self::lambertian::Lambertian;
+
 pub use self::utils::random_in_unit_sphere;
 pub use self::utils::random_in_unit_disk;
-pub use self::metal::Metal;
-pub use self::metal::reflect;
-pub use self::dielectric::Dielectric;

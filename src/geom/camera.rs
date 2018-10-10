@@ -1,6 +1,6 @@
-use super::Vec3;
-use super::Ray;
-use super::random_in_unit_disk;
+use Vec3;
+use Ray;
+use random_in_unit_disk;
 
 use std::f64::consts::PI;
 

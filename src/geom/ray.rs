@@ -1,4 +1,4 @@
-use super::Vec3;
+use Vec3;
 
 #[derive(Debug, PartialEq)]
 pub struct Ray {

@@ -2,16 +2,16 @@ extern crate rand;
 extern crate image;
 
 use image::ImageBuffer;
-use std::fs::File;
-use std::io::prelude::*;
 use geom::*;
 use rand::random;
-use std::time::{Duration, Instant};
+use std::time::Instant;
 
-use std::f64::consts::PI;
 use std::rc::Rc;
 
 mod geom;
+mod material;
+
+use material::*;
 
 fn color(r:&Ray, h:&Hitable, depth:i32) -> Vec3 {
     let hit_result = h.hit(r, 0.0001, 100000.0);
@@ -77,10 +77,10 @@ fn main() {
     hit_list.add(Sphere::new(Vec3::new(0.0, -100.5, -1.0), 100.0, Rc::clone(&metal)));
     let total_time = Instant::now();
     let mut img: image::RgbaImage = ImageBuffer::new(width as u32, height as u32);
-    for y in (0..height) {
+    for y in 0..height {
         for x in 0..width {
             let mut total = Vec3::new(0.0, 0.0, 0.0);
-            for s in 0..n_samples {
+            for _ in 0..n_samples {
                 let u_delta:f64 = rand::random();
                 let v_delta:f64 = rand::random();
                 let u = (x as f64 + u_delta) / width as f64;

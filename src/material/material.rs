@@ -1,6 +1,6 @@
-use super::HitRecord;
-use super::Vec3;
-use super::Ray;
+use geom::HitRecord;
+use geom::Vec3;
+use geom::Ray;
 
 use std::fmt;
 
