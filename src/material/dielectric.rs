@@ -12,9 +12,9 @@ fn refract(v:&Vec3, n:&Vec3, ni_over_nt:f64) -> (bool, Vec3) {
     let discriminant = 1.0 - ni_over_nt * ni_over_nt* (1.0 - dt.powi(2));
     if discriminant > 0.0 {
         let refracted =  (uv - *n * dt) * ni_over_nt - *n * discriminant.sqrt();
-        return (true, refracted);
+        (true, refracted)
     } else {
-        return (false, Vec3::origin());
+        (false, Vec3::origin())
     }
 } 
 

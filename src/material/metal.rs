@@ -7,7 +7,7 @@ use geom::HitRecord;
 use geom::random_in_unit_sphere;
 
 pub fn reflect(v: &Vec3, n: &Vec3) -> Vec3 {
-    return *v - *n * Vec3::dot(v, n) * 2.0;
+    *v - *n * Vec3::dot(v, n) * 2.0
 }
 
 #[derive(Debug)]

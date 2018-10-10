@@ -14,7 +14,7 @@ mod material;
 use material::*;
 
 fn color(r:&Ray, h:&Hitable, depth:i32) -> Vec3 {
-    let hit_result = h.hit(r, 0.0001, 100000.0);
+    let hit_result = h.hit(r, 0.0001, 100_000.0);
     match hit_result {
         // The division was valid
         Some(hit_record) => {

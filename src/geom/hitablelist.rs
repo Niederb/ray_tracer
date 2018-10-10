@@ -21,7 +21,7 @@ impl<T: Hitable + std::fmt::Debug> HitableList<T> {
 
 impl<T: Hitable + std::fmt::Debug> Hitable for HitableList<T> {
     fn hit(&self, r:&Ray, t_min:f64, t_max:f64) -> Option<HitRecord> {
-        if self.l.len() == 0 {
+        if self.l.is_empty() {
             return None;
         }
         let mut closest_record: Option<HitRecord> = None;
