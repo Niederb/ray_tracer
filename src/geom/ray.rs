@@ -26,8 +26,8 @@ impl Ray {
 
 #[cfg(test)]
 mod test {
-    use super::Vec3;
-    use super::Ray;
+    use Vec3;
+    use Ray;
     #[test]
     fn point_at_parameter_test() {
         let origin = Vec3::new(1.0, 2.0, 3.0);

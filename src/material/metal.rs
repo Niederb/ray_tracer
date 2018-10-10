@@ -1,6 +1,6 @@
 extern crate rand;
 
-use super::Material;
+use Material;
 use geom::Ray;
 use geom::Vec3;
 use geom::HitRecord;

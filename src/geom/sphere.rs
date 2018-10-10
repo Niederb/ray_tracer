@@ -49,8 +49,8 @@ impl Hitable for Sphere {
 
 #[cfg(test)]
 mod test {
-    use super::Vec3;
-    use super::Ray;
+    use Vec3;
+    use Ray;
     #[test]
     fn point_at_parameter_test() {
     }

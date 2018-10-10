@@ -48,8 +48,8 @@ impl<T: Hitable + std::fmt::Debug> Hitable for HitableList<T> {
 
 #[cfg(test)]
 mod test {
-    use super::Vec3;
-    use super::Ray;
+    use Vec3;
+    use Ray;
     #[test]
     fn point_at_parameter_test() {
     }

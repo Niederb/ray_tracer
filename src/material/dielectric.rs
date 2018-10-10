@@ -1,10 +1,10 @@
 extern crate rand;
 
-use super::Material;
+use Material;
 use geom::Ray;
 use geom::Vec3;
 use geom::HitRecord;
-use super::reflect;
+use reflect;
 
 fn refract(v:&Vec3, n:&Vec3, ni_over_nt:f64) -> (bool, Vec3) {
     let uv = v.unit_vector();
