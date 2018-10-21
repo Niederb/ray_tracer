@@ -3,16 +3,16 @@ use Vec3;
 #[derive(Debug, PartialEq)]
 pub struct Ray {
     origin: Vec3,
-    direction: Vec3
+    direction: Vec3,
 }
 
 impl Ray {
-    pub fn new(origin:Vec3, direction:Vec3) -> Ray {
+    pub fn new(origin: Vec3, direction: Vec3) -> Ray {
         Ray { origin, direction }
     }
 
-    pub fn point_at_parameter(&self, t:f64) -> Vec3 {
-        self.origin + self.direction*t
+    pub fn point_at_parameter(&self, t: f64) -> Vec3 {
+        self.origin + self.direction * t
     }
 
     pub fn origin(&self) -> &Vec3 {
@@ -26,8 +26,8 @@ impl Ray {
 
 #[cfg(test)]
 mod test {
-    use Vec3;
     use Ray;
+    use Vec3;
     #[test]
     fn point_at_parameter_test() {
         let origin = Vec3::new(1.0, 2.0, 3.0);

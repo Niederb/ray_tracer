@@ -1,20 +1,24 @@
-use Vec3;
-use Ray;
 use material::Material;
+use Ray;
+use Vec3;
 
 use std::rc::Rc;
 
 pub struct HitRecord {
-    t:f64,
-    p:Vec3,
-    normal:Vec3,
-    material:Rc<Material>,
+    t: f64,
+    p: Vec3,
+    normal: Vec3,
+    material: Rc<Material>,
 }
 
 impl HitRecord {
-
-    pub fn new(t:f64, p:Vec3, normal:Vec3, material:Rc<Material>) -> HitRecord {
-        HitRecord { t, p, normal, material }
+    pub fn new(t: f64, p: Vec3, normal: Vec3, material: Rc<Material>) -> HitRecord {
+        HitRecord {
+            t,
+            p,
+            normal,
+            material,
+        }
     }
 
     pub fn t(&self) -> f64 {
@@ -35,5 +39,5 @@ impl HitRecord {
 }
 
 pub trait Hitable {
-    fn hit(&self, r:&Ray, t_min:f64, t_max:f64) -> Option<HitRecord>;
+    fn hit(&self, r: &Ray, t_min: f64, t_max: f64) -> Option<HitRecord>;
 }

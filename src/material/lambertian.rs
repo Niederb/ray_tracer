@@ -1,24 +1,24 @@
 extern crate rand;
 
-use Material;
+use geom::random_in_unit_sphere;
+use geom::HitRecord;
 use geom::Ray;
 use geom::Vec3;
-use geom::HitRecord;
-use geom::random_in_unit_sphere;
+use Material;
 
 #[derive(Debug)]
 pub struct Lambertian {
-    albedo:Vec3,
+    albedo: Vec3,
 }
 
 impl Lambertian {
-    pub fn new(albedo:Vec3) -> Lambertian {
-        Lambertian{ albedo }
+    pub fn new(albedo: Vec3) -> Lambertian {
+        Lambertian { albedo }
     }
 }
 
 impl Material for Lambertian {
-    fn scatter(&self, ray:&Ray, hit_record:HitRecord) -> (Vec3, Ray) {
+    fn scatter(&self, ray: &Ray, hit_record: HitRecord) -> (Vec3, Ray) {
         let hit_point = *hit_record.hit_point();
         let normal = *hit_record.normal();
         let random_direction = random_in_unit_sphere();
