@@ -8,11 +8,11 @@ pub struct HitRecord {
     t: f64,
     p: Vec3,
     normal: Vec3,
-    material: Rc<Material>,
+    material: Rc<dyn Material>,
 }
 
 impl HitRecord {
-    pub fn new(t: f64, p: Vec3, normal: Vec3, material: Rc<Material>) -> HitRecord {
+    pub fn new(t: f64, p: Vec3, normal: Vec3, material: Rc<dyn Material>) -> HitRecord {
         HitRecord {
             t,
             p,
@@ -33,7 +33,7 @@ impl HitRecord {
         &self.p
     }
 
-    pub fn material(&self) -> Rc<Material> {
+    pub fn material(&self) -> Rc<dyn Material> {
         Rc::clone(&self.material)
     }
 }

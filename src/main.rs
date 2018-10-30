@@ -1,5 +1,5 @@
-extern crate image;
-extern crate rand;
+use image;
+use rand;
 
 use self::geom::*;
 use image::ImageBuffer;
@@ -13,7 +13,7 @@ mod material;
 
 use crate::material::*;
 
-fn color(r: &Ray, h: &Hitable, depth: i32) -> Vec3 {
+fn color(r: &Ray, h: &dyn Hitable, depth: i32) -> Vec3 {
     let hit_result = h.hit(r, 0.0001, 100_000.0);
     match hit_result {
         // The division was valid
@@ -59,8 +59,8 @@ fn main() {
     let camera = create_camera(width, height);
 
     let mut hit_list = HitableList::new();
-    let world_material: Rc<Material> = Rc::new(Lambertian::new(Vec3::new(0.5, 0.5, 0.5)));
-    let metal: Rc<Material> = Rc::new(Metal::new(Vec3::new(0.3, 0.3, 0.8), 0.0));
+    let world_material: Rc<dyn Material> = Rc::new(Lambertian::new(Vec3::new(0.5, 0.5, 0.5)));
+    let metal: Rc<dyn Material> = Rc::new(Metal::new(Vec3::new(0.3, 0.3, 0.8), 0.0));
 
     hit_list.add(Sphere::new(
         Vec3::new(0.0, -1000.0, 0.0),
@@ -76,7 +76,7 @@ fn main() {
                 b as f64 + random::<f64>() * 0.9,
             );
             if (center - Vec3::new(4.0, 0.2, 0.0)).length() > 0.9 {
-                let material: Rc<Material> = if choose_mat < 0.8 {
+                let material: Rc<dyn Material> = if choose_mat < 0.8 {
                     Rc::new(Lambertian::new(Vec3::new(
                         random::<f64>() * random::<f64>(),
                         random::<f64>() * random::<f64>(),

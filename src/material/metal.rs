@@ -1,4 +1,4 @@
-extern crate rand;
+
 
 use crate::geom::random_in_unit_sphere;
 use crate::geom::HitRecord;

@@ -1,4 +1,4 @@
-extern crate rand;
+use rand;
 
 use crate::geom::HitRecord;
 use crate::geom::Ray;
