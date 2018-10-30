@@ -4,8 +4,8 @@ version = "0.1.0"
 authors = ["Niederb <thomas@niederberger.ch>"]
 
 [dependencies]
-rand = "0.5.4"
-image = "*"
+rand = "0.5.5"
+image = "0.20.0"
 
 [profile.release]
 debug = true
