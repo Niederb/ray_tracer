@@ -1,10 +1,10 @@
 extern crate rand;
 
-use geom::random_in_unit_sphere;
-use geom::HitRecord;
-use geom::Ray;
-use geom::Vec3;
-use Material;
+use crate::geom::random_in_unit_sphere;
+use crate::geom::HitRecord;
+use crate::geom::Ray;
+use crate::geom::Vec3;
+use crate::Material;
 
 pub fn reflect(v: &Vec3, n: &Vec3) -> Vec3 {
     *v - *n * Vec3::dot(v, n) * 2.0

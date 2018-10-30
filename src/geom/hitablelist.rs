@@ -1,8 +1,7 @@
 use std;
-use HitRecord;
-use Hitable;
-use Ray;
-use Vec3;
+use crate::HitRecord;
+use crate::Hitable;
+use crate::Ray;
 
 #[derive(PartialEq)]
 pub struct HitableList<T: Hitable + std::fmt::Debug> {
@@ -46,8 +45,7 @@ impl<T: Hitable + std::fmt::Debug> Hitable for HitableList<T> {
 
 #[cfg(test)]
 mod test {
-    use Ray;
-    use Vec3;
+
     #[test]
     fn point_at_parameter_test() {}
 }

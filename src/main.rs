@@ -11,7 +11,7 @@ use std::rc::Rc;
 mod geom;
 mod material;
 
-use material::*;
+use crate::material::*;
 
 fn color(r: &Ray, h: &Hitable, depth: i32) -> Vec3 {
     let hit_result = h.hit(r, 0.0001, 100_000.0);

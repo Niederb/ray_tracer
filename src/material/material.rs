@@ -1,6 +1,6 @@
-use geom::HitRecord;
-use geom::Ray;
-use geom::Vec3;
+use crate::geom::HitRecord;
+use crate::geom::Ray;
+use crate::geom::Vec3;
 
 use std::fmt;
 

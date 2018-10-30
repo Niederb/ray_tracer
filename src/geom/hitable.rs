@@ -1,6 +1,6 @@
-use material::Material;
-use Ray;
-use Vec3;
+use crate::material::Material;
+use crate::Ray;
+use crate::Vec3;
 
 use std::rc::Rc;
 

@@ -1,4 +1,4 @@
-use Vec3;
+use crate::Vec3;
 
 #[derive(Debug, PartialEq)]
 pub struct Ray {
@@ -26,8 +26,8 @@ impl Ray {
 
 #[cfg(test)]
 mod test {
-    use Ray;
-    use Vec3;
+    use crate::Ray;
+    use crate::Vec3;
     #[test]
     fn point_at_parameter_test() {
         let origin = Vec3::new(1.0, 2.0, 3.0);

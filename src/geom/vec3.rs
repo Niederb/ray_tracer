@@ -121,7 +121,7 @@ impl Div<f64> for Vec3 {
 
 #[cfg(test)]
 mod test {
-    use Vec3;
+    use crate::Vec3;
 
     #[test]
     fn squared_length_test() {

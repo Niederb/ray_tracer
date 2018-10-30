@@ -1,6 +1,6 @@
 extern crate rand;
 
-use Vec3;
+use crate::Vec3;
 
 pub fn random_in_unit_disk() -> Vec3 {
     loop {

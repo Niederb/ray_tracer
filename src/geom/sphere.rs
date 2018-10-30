@@ -1,8 +1,8 @@
-use material::Material;
-use HitRecord;
-use Hitable;
-use Ray;
-use Vec3;
+use crate::material::Material;
+use crate::HitRecord;
+use crate::Hitable;
+use crate::Ray;
+use crate::Vec3;
 
 use std::rc::Rc;
 
@@ -63,8 +63,7 @@ impl Hitable for Sphere {
 
 #[cfg(test)]
 mod test {
-    use Ray;
-    use Vec3;
+
     #[test]
     fn point_at_parameter_test() {}
 }
